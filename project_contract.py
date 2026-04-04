@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import os
 
+from project_session import get_active_project_file
 
 @dataclass(slots=True)
 class ProjectContract:

@@ -65,7 +65,7 @@ Laravel Application
 
 - Ollama running at `http://localhost:11434`
 - `deepseek-coder-v2:16b` pulled (`ollama pull deepseek-coder-v2:16b`)
-- Python 3.11+
+- Python 3.14+
 
 ---
 
@@ -74,17 +74,30 @@ Laravel Application
 ```bash
 git clone <repo> laravel-enterprise-rag
 cd laravel-enterprise-rag
-pip install -r requirements.txt
+python3 -m venv .venv
+./.venv/bin/pip install -r requirements.txt
 ```
 
 ---
 
 ## Setup
 
-### 1. Ingest the knowledge base
+### 1. Create the project contract
+
+Copy `project.contract.example.json` to `project.contract.json` and adjust the paths if needed.
+
+The runtime loads contracts in this order:
+- `LER_PROJECT_FILE`
+- `.active_project`
+- `project.contract.json`
+- `project.contract.example.json`
+
+An explicit `LER_PROJECT_FILE` path must exist or startup will fail with a clear error.
+
+### 2. Ingest the knowledge base
 
 ```bash
-python3 -c "
+./.venv/bin/python -c "
 from app import list_local_files, process_file
 files = list_local_files()
 print(f'Found {len(files)} files:')
@@ -97,24 +110,32 @@ print('Done.')
 
 Run this again whenever you add or update a knowledge file.
 
-### 2. Test retrieval
+### 3. Test retrieval
 
 ```bash
-python3 -c "
-from app import get_embedding, collection
+./.venv/bin/python -c "
+from app import get_collection, get_embedding
 query = 'How should I structure a PHP SDK package?'
 embedding = get_embedding(query)
-results = collection.query(query_embeddings=[embedding], n_results=2)
+results = get_collection().query(query_embeddings=[embedding], n_results=2)
 for i, doc in enumerate(results['documents'][0]):
     print(f'[{i+1}] {doc[:300]}')
 "
 ```
 
-### 3. Start the chat
+### 4. Start the chat
 
 ```bash
-python3 chat.py
+./.venv/bin/python chat.py
 ```
+
+### 5. Run tests
+
+```bash
+./.venv/bin/pytest -q
+```
+
+The automated tests are hermetic: they use a temporary project contract, a temporary Chroma database, and a fake embedding model. Ollama and downloaded Hugging Face models are not required for the default test run.
 
 ---
 
@@ -182,8 +203,10 @@ implemented in code. Fake conventions poison the knowledge base.
 
 ## Model Configuration
 
-The system uses `deepseek-coder-v2:16b` via Ollama by default.
-Configured in `chat.py` — change the model name there if needed.
+The chat interface uses `deepseek-coder-v2:16b` via Ollama by default.
+Embeddings are generated with `BAAI/bge-small-en-v1.5` in `app.py`.
+
+The embedding model is loaded lazily when `get_embedding()` is first called, so importing `app.py` does not require network access.
 
 ---
 

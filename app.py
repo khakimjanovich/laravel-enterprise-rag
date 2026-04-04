@@ -3,6 +3,7 @@ import json
 import time
 import sys
 from datetime import datetime
+from pathlib import Path
 from sentence_transformers import SentenceTransformer
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
@@ -11,41 +12,75 @@ from chromadb.config import Settings
 
 from project_contract import ProjectContract
 
-PROJECT = ProjectContract.from_file()
-KNOWLEDGE_DIRECTORY = str(PROJECT.knowledge_path())
-
 PERSISTENT_DIRECTORY = "./chroma_db"
 COLLECTION_NAME = "your_collection_name"
+DEFAULT_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 console = Console()
+
+_project = None
+_client = None
+_collection = None
+_model = None
 
 # -------------------------------
 # 1) Set Up ChromaDB
 # -------------------------------
 
-# Initialize ChromaDB client with persistence
-# Configure settings with the directory to persist the database
-settings = Settings(persist_directory=PERSISTENT_DIRECTORY, is_persistent=True)
+def load_project(path: str | None = None) -> ProjectContract:
+    global _project
 
-# Initialize the Chroma client with the updated settings
-client = Client(settings)
+    if path is not None:
+        return ProjectContract.from_file(path)
 
-# Create or get a collection
-collection = client.get_or_create_collection(COLLECTION_NAME)
+    if _project is None:
+        _project = ProjectContract.from_file()
+
+    return _project
+
+
+def knowledge_directory() -> str:
+    return str(load_project().knowledge_path())
+
+
+def create_collection(persist_directory: str = PERSISTENT_DIRECTORY, collection_name: str = COLLECTION_NAME):
+    settings = Settings(persist_directory=persist_directory, is_persistent=True)
+    client = Client(settings)
+    return client, client.get_or_create_collection(collection_name)
+
+
+def get_collection():
+    global _client, _collection
+
+    if _collection is None:
+        _client, _collection = create_collection(PERSISTENT_DIRECTORY, COLLECTION_NAME)
+
+    return _collection
 
 # -------------------------------
 # 2) Set Up Sentence Transformers
 # -------------------------------
 
-# Load the model
-model = SentenceTransformer('BAAI/bge-small-en-v1.5')
+def create_embedding_model(model_name: str = DEFAULT_MODEL_NAME):
+    return SentenceTransformer(model_name)
+
+
+def get_model():
+    global _model
+
+    if _model is None:
+        _model = create_embedding_model()
+
+    return _model
 
 def get_embedding(text: str) -> list:
     """
     Generate an embedding for the given text using Sentence Transformers.
     """
     try:
-        embedding = model.encode(text).tolist()
+        embedding = get_model().encode(text)
+        if hasattr(embedding, "tolist"):
+            embedding = embedding.tolist()
         return embedding
     except Exception as e:
         console.print(f"[red]Error obtaining embedding: {e}[/red]")
@@ -54,19 +89,26 @@ def get_embedding(text: str) -> list:
 # -------------------------------
 # 3) Utility: Track Processed Files
 # -------------------------------
-PROCESSED_FILES_PATH = "processed_files.json"
+PROCESSED_FILES_NAME = "processed_files.json"
+
+
+def processed_files_path() -> Path:
+    return Path(load_project().root) / PROCESSED_FILES_NAME
 
 def load_processed_files():
     """
     Returns a dict with { file_id: { modified: str, vectors: [vector_ids], name: str }, ...}
     """
-    if os.path.exists(PROCESSED_FILES_PATH):
-        with open(PROCESSED_FILES_PATH, "r") as f:
+    path = processed_files_path()
+    if path.exists():
+        with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
 def save_processed_files(processed):
-    with open(PROCESSED_FILES_PATH, "w") as f:
+    path = processed_files_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(processed, f, indent=2)
 
 # -------------------------------
@@ -138,7 +180,7 @@ def process_file(file_path: str):
 
         try:
             # print(embedding)
-            collection.add(
+            get_collection().add(
                 embeddings=[embedding],
                 metadatas=[metadata],
                 documents=[chunk],
@@ -168,11 +210,8 @@ def delete_vectors(file_name: str):
     Remove existing vectors for a file using metadata filter in ChromaDB.
     """
     processed = load_processed_files()
-    file_data = processed.get(file_name, {})
-
-    # Fallback to metadata-based deletion (Use "file_name" instead of "file_id")
     try:
-        collection.delete(where={"file_name": file_name})
+        get_collection().delete(where={"file_name": file_name})
         console.print(f"Used metadata filter to delete vectors for {file_name}")
         return True
     except Exception as e:
@@ -187,7 +226,7 @@ def list_local_files():
     """
     List all text files in the 'documents' folder.
     """
-    folder_path = KNOWLEDGE_DIRECTORY
+    folder_path = knowledge_directory()
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
@@ -204,12 +243,13 @@ def list_local_files():
 
     return files
 def upsert_project_profile() -> None:
+    project = load_project()
     profile = {
-        "project_name": PROJECT.name,
-        "project_root": PROJECT.root,
-        "knowledge_dir": PROJECT.knowledge_dir,
-        "reports_dir": PROJECT.reports_dir,
-        "architecture": PROJECT.architecture,
+        "project_name": project.name,
+        "project_root": project.root,
+        "knowledge_dir": project.knowledge_dir,
+        "reports_dir": project.reports_dir,
+        "architecture": project.architecture,
     }
 
     content = json.dumps(profile, indent=2, ensure_ascii=False)
@@ -218,14 +258,14 @@ def upsert_project_profile() -> None:
     if embedding is None:
         return
 
-    collection.upsert(
-        ids=[f"project:{PROJECT.name}"],
+    get_collection().upsert(
+        ids=[f"project:{project.name}"],
         embeddings=[embedding],
         documents=[content],
         metadatas=[{
             "type": "project_profile",
-            "project_name": PROJECT.name,
-            "has_architecture": bool(PROJECT.architecture),
+            "project_name": project.name,
+            "has_architecture": bool(project.architecture),
         }],
     )
 
@@ -239,7 +279,7 @@ def update_files():
 
         # 1) Handle deletions
         for file_name in list(processed.keys()):
-            file_path = os.path.join(KNOWLEDGE_DIRECTORY, file_name)
+            file_path = os.path.join(knowledge_directory(), file_name)
             if not os.path.exists(file_path):
                 console.print(f"Removing vectors for deleted file: {file_name}")
                 if delete_vectors(file_name):  # <=== This now properly deletes old entries

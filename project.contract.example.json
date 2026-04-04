@@ -1,0 +1,7 @@
+{
+  "name": "laravel-enterprise-rag",
+  "root": ".",
+  "knowledge_dir": "knowledge",
+  "reports_dir": "reports",
+  "architecture": {}
+}

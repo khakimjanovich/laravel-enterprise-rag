@@ -15,9 +15,26 @@ class ProjectContract:
 
     @classmethod
     def from_file(cls, path: str = None) -> "ProjectContract":
-        path = path or os.getenv("LER_PROJECT_FILE") or get_active_project_file() or "project.contract.json"
+        explicit_path = path or os.getenv("LER_PROJECT_FILE") or get_active_project_file()
 
-        with open(path, "r", encoding="utf-8") as f:
+        if explicit_path:
+            if not os.path.exists(explicit_path):
+                raise FileNotFoundError(
+                    "Project contract file not found. "
+                    f"Checked: {explicit_path}. Create `project.contract.json` or set `LER_PROJECT_FILE`."
+                )
+            selected_path = explicit_path
+        elif os.path.exists("project.contract.json"):
+            selected_path = "project.contract.json"
+        elif os.path.exists("project.contract.example.json"):
+            selected_path = "project.contract.example.json"
+        else:
+            raise FileNotFoundError(
+                "Project contract file not found. "
+                "Checked: project.contract.json. Create `project.contract.json` or set `LER_PROJECT_FILE`."
+            )
+
+        with open(selected_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         return cls(

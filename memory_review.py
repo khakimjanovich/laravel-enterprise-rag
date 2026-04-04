@@ -4,20 +4,22 @@ from typing import Literal
 
 from project_contract import ProjectContract
 
-PROJECT = ProjectContract.from_file()
-
-MEMORY_REVIEW_PATH = str(PROJECT.reports_path() / "memory_review.json")
+def _memory_review_path() -> str:
+    project = ProjectContract.from_file()
+    project.reports_path().mkdir(parents=True, exist_ok=True)
+    return str(project.reports_path() / "memory_review.json")
 
 def _load() -> dict:
-    if os.path.exists(MEMORY_REVIEW_PATH):
-        with open(MEMORY_REVIEW_PATH, "r", encoding="utf-8") as f:
+    memory_review_path = _memory_review_path()
+    if os.path.exists(memory_review_path):
+        with open(memory_review_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
     return {"items": []}
 
 
 def _save(data: dict) -> None:
-    with open(MEMORY_REVIEW_PATH, "w", encoding="utf-8") as f:
+    with open(_memory_review_path(), "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 

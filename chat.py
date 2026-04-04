@@ -5,7 +5,7 @@ from rich.console import Console
 from memory_review import add_review_item, list_open_items, resolve_item
 
 try:
-    from app import get_embedding, console, collection
+    from app import get_collection, get_embedding, console
 except ImportError:
     print("Make sure 'app.py' is in the same folder and named appropriately.")
     sys.exit(1)
@@ -72,7 +72,7 @@ def chat_agent(query: str) -> str:
 
     # 2) Query ChromaDB
     try:
-        results = collection.query(
+        results = get_collection().query(
             query_embeddings=[query_embedding],
             n_results=3
         )

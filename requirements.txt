@@ -4,3 +4,4 @@ chromadb
 ollama
 pypdf
 python-docx
+pytest

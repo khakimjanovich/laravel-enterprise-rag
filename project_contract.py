@@ -14,8 +14,7 @@ class ProjectContract:
 
     @classmethod
     def from_file(cls, path: str = None) -> "ProjectContract":
-        path = path or os.getenv("LER_PROJECT_FILE", "project.contract.json")
-        architecture=data.get("architecture", {}),
+        path = path or os.getenv("LER_PROJECT_FILE") or get_active_project_file() or "project.contract.json"
 
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -25,6 +24,7 @@ class ProjectContract:
             root=data["root"],
             knowledge_dir=data["knowledge_dir"],
             reports_dir=data["reports_dir"],
+            architecture=data.get("architecture", {}),
         )
 
     def knowledge_path(self) -> Path:

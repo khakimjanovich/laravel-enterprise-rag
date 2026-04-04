@@ -203,10 +203,36 @@ def list_local_files():
                 })
 
     return files
+def upsert_project_profile() -> None:
+    profile = {
+        "project_name": PROJECT.name,
+        "project_root": PROJECT.root,
+        "knowledge_dir": PROJECT.knowledge_dir,
+        "reports_dir": PROJECT.reports_dir,
+        "architecture": PROJECT.architecture,
+    }
+
+    content = json.dumps(profile, indent=2, ensure_ascii=False)
+    embedding = get_embedding(content)
+
+    if embedding is None:
+        return
+
+    collection.upsert(
+        ids=[f"project:{PROJECT.name}"],
+        embeddings=[embedding],
+        documents=[content],
+        metadatas=[{
+            "type": "project_profile",
+            "project_name": PROJECT.name,
+            "has_architecture": bool(PROJECT.architecture),
+        }],
+    )
 
 def update_files():
     console.print(f"\n=== Update started {datetime.now().isoformat()} ===\n")
     processed = load_processed_files()
+    upsert_project_profile()
 
     try:
         current_files = list_local_files()

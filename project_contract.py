@@ -10,10 +10,12 @@ class ProjectContract:
     root: str
     knowledge_dir: str
     reports_dir: str
+    architecture: dict
 
     @classmethod
     def from_file(cls, path: str = None) -> "ProjectContract":
         path = path or os.getenv("LER_PROJECT_FILE", "project.contract.json")
+        architecture=data.get("architecture", {}),
 
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)

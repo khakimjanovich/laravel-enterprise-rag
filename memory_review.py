@@ -2,8 +2,11 @@ import json
 import os
 from typing import Literal
 
-MEMORY_REVIEW_PATH = "memory_review.json"
+from project_contract import ProjectContract
 
+PROJECT = ProjectContract.from_file()
+
+MEMORY_REVIEW_PATH = str(PROJECT.reports_path() / "memory_review.json")
 
 def _load() -> dict:
     if os.path.exists(MEMORY_REVIEW_PATH):

@@ -9,6 +9,11 @@ from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeEl
 from chromadb import Client
 from chromadb.config import Settings
 
+from project_contract import ProjectContract
+
+PROJECT = ProjectContract.from_file()
+KNOWLEDGE_DIRECTORY = str(PROJECT.knowledge_path())
+
 PERSISTENT_DIRECTORY = "./chroma_db"
 COLLECTION_NAME = "your_collection_name"
 
@@ -182,7 +187,7 @@ def list_local_files():
     """
     List all text files in the 'documents' folder.
     """
-    folder_path = "knowledge/"
+    folder_path = KNOWLEDGE_DIRECTORY
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
@@ -208,7 +213,7 @@ def update_files():
 
         # 1) Handle deletions
         for file_name in list(processed.keys()):
-            file_path = os.path.join("documents/", file_name)
+            file_path = os.path.join(KNOWLEDGE_DIRECTORY, file_name)
             if not os.path.exists(file_path):
                 console.print(f"Removing vectors for deleted file: {file_name}")
                 if delete_vectors(file_name):  # <=== This now properly deletes old entries

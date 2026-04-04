@@ -2,11 +2,14 @@ import sys
 from ollama import chat
 from rich.console import Console
 
+from memory_review import add_review_item, list_open_items, resolve_item
+
 try:
     from app import get_embedding, console, collection
 except ImportError:
     print("Make sure 'app.py' is in the same folder and named appropriately.")
     sys.exit(1)
+
 
 def main():
     """
@@ -20,8 +23,35 @@ def main():
         if query.lower() in ("exit", "quit"):
             break
 
+        if query == "/review":
+            items = list_open_items()
+            if not items:
+                console.print("[green]No open gaps or inconsistencies.[/green]")
+                continue
+
+            for item in items:
+                console.print(
+                    f"[yellow]#{item['id']}[/yellow] [{item['kind']}] {item['title']}\n"
+                    f"{item['details']}\n"
+                    f"source: {item['source']}\n"
+                )
+            continue
+
+        if query.startswith("/accept-memory "):
+            item_id = int(query.split()[-1])
+            ok = resolve_item(item_id, "update_memory")
+            console.print("[green]Updated.[/green]" if ok else "[red]Not found.[/red]")
+            continue
+
+        if query.startswith("/fix "):
+            item_id = int(query.split()[-1])
+            ok = resolve_item(item_id, "fix_inconsistency")
+            console.print("[green]Marked for fix.[/green]" if ok else "[red]Not found.[/red]")
+            continue
+
         answer = chat_agent(query)
         console.print(f"\n[bold yellow]Answer:[/] {answer}\n")
+
 
 def chat_agent(query: str) -> str:
     """
@@ -58,8 +88,32 @@ def chat_agent(query: str) -> str:
     if not context.strip():
         return "I cannot find the answer in the available resources."
 
-    # 3) Use Ollama chat completion
-    return ollama_chat(system_message, query, context)
+    review_hint = (
+        "If you detect a missing rule, answer with prefix 'GAP:'. "
+        "If you detect conflicting knowledge, answer with prefix 'INCONSISTENCY:'. "
+        "Otherwise answer normally."
+    )
+
+    response = ollama_chat(system_message + "\n" + review_hint, query, context)
+
+    if response.startswith("GAP:"):
+        add_review_item(
+            kind="gap",
+            title=query,
+            details=response[4:].strip(),
+            source="chat",
+        )
+
+    if response.startswith("INCONSISTENCY:"):
+        add_review_item(
+            kind="inconsistency",
+            title=query,
+            details=response[len("INCONSISTENCY:"):].strip(),
+            source="chat",
+        )
+
+    return response
+
 
 def ollama_chat(system_message: str, query: str, context: str) -> str:
     """
@@ -83,6 +137,7 @@ def ollama_chat(system_message: str, query: str, context: str) -> str:
         return response['message']['content']
     except Exception as e:
         return f"Error: {str(e)}"
+
 
 if __name__ == "__main__":
     main()

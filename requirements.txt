@@ -2,3 +2,5 @@ sentence_transformers
 rich
 chromadb
 ollama
+pypdf
+python-docx

@@ -82,6 +82,17 @@ python3 -m venv .venv
 
 ## Setup
 
+### CLI
+
+The repository also exposes a scriptable `ops` interface:
+
+```bash
+python ops.py ai project list
+python ops.py ai project add --name demo --contract ./project.contract.json
+python ops.py ai scope use package svgate-sdk
+python ops.py project analyze gaps --scope app
+```
+
 ### 1. Create the project contract
 
 Copy `project.contract.example.json` to `project.contract.json` and adjust the paths if needed.

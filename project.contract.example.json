@@ -1,7 +1,12 @@
 {
   "name": "laravel-enterprise-rag",
   "root": ".",
+  "project_type": "laravel-app",
   "knowledge_dir": "knowledge",
   "reports_dir": "reports",
+  "package_roots": [
+    "packages"
+  ],
+  "service_docs": [],
   "architecture": {}
 }

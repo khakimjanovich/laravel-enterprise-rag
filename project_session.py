@@ -3,6 +3,8 @@ import os
 
 PROJECTS_REGISTRY = "projects.json"
 ACTIVE_PROJECT_FILE = ".active_project"
+ACTIVE_DOMAIN_FILE = ".active_domain"
+ACTIVE_SCOPE_FILE = ".active_scope"
 
 
 def load_projects() -> dict:
@@ -41,4 +43,30 @@ def get_active_project_file() -> str | None:
         return None
 
     with open(ACTIVE_PROJECT_FILE, "r", encoding="utf-8") as f:
+        return f.read().strip() or None
+
+
+def set_active_domain(domain: str) -> None:
+    with open(ACTIVE_DOMAIN_FILE, "w", encoding="utf-8") as f:
+        f.write(domain)
+
+
+def get_active_domain() -> str | None:
+    if not os.path.exists(ACTIVE_DOMAIN_FILE):
+        return None
+
+    with open(ACTIVE_DOMAIN_FILE, "r", encoding="utf-8") as f:
+        return f.read().strip() or None
+
+
+def set_active_scope(scope: str) -> None:
+    with open(ACTIVE_SCOPE_FILE, "w", encoding="utf-8") as f:
+        f.write(scope)
+
+
+def get_active_scope() -> str | None:
+    if not os.path.exists(ACTIVE_SCOPE_FILE):
+        return None
+
+    with open(ACTIVE_SCOPE_FILE, "r", encoding="utf-8") as f:
         return f.read().strip() or None

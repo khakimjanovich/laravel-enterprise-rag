@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 import json
 import os
@@ -12,6 +12,9 @@ class ProjectContract:
     knowledge_dir: str
     reports_dir: str
     architecture: dict
+    project_type: str = "laravel-app"
+    package_roots: list[str] = field(default_factory=list)
+    service_docs: list[str] = field(default_factory=list)
 
     @classmethod
     def from_file(cls, path: str = None) -> "ProjectContract":
@@ -43,6 +46,9 @@ class ProjectContract:
             knowledge_dir=data["knowledge_dir"],
             reports_dir=data["reports_dir"],
             architecture=data.get("architecture", {}),
+            project_type=data.get("project_type", "laravel-app"),
+            package_roots=data.get("package_roots", []),
+            service_docs=data.get("service_docs", []),
         )
 
     def knowledge_path(self) -> Path:

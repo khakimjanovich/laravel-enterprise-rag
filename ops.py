@@ -71,6 +71,26 @@ def _handle_analyze_command(args: argparse.Namespace) -> int:
     return 1
 
 
+
+
+def _handle_ingest_command(args: argparse.Namespace) -> int:
+    if args.ingest_command == "run":
+        from app import update_files
+        update_files()
+        return 0
+
+    if args.ingest_command == "status":
+        from app import get_collection, list_local_files
+        col = get_collection()
+        files = list_local_files()
+        print(f"Chunks in ChromaDB: {col.count()}")
+        print(f"Knowledge files found: {len(files)}")
+        for f in files:
+            print(f"  {f['name']}")
+        return 0
+
+    return 1
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="ops")
     domain_subparsers = parser.add_subparsers(dest="domain")
@@ -99,6 +119,12 @@ def build_parser() -> argparse.ArgumentParser:
         scope_use_package.add_argument("package_name")
         scope_subparsers.add_parser("current")
 
+        if domain_name == "ai":
+            ingest_parser = command_subparsers.add_parser("ingest")
+            ingest_subparsers = ingest_parser.add_subparsers(dest="ingest_command")
+            ingest_subparsers.add_parser("run")
+            ingest_subparsers.add_parser("status")
+
         if domain_name == "project":
             analyze_parser = command_subparsers.add_parser("analyze")
             analyze_subparsers = analyze_parser.add_subparsers(dest="analyze_command")
@@ -124,6 +150,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.domain == "project" and args.command == "analyze":
         return _handle_analyze_command(args)
+
+    if args.domain == "ai" and args.command == "ingest":
+        return _handle_ingest_command(args)
 
     parser.print_help()
     return 1

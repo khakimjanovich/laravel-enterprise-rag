@@ -7,8 +7,7 @@ from pathlib import Path
 from sentence_transformers import SentenceTransformer
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
-from chromadb import Client
-from chromadb.config import Settings
+from chromadb import PersistentClient
 
 from project_contract import ProjectContract
 
@@ -44,8 +43,8 @@ def knowledge_directory() -> str:
 
 
 def create_collection(persist_directory: str = PERSISTENT_DIRECTORY, collection_name: str = COLLECTION_NAME):
-    settings = Settings(persist_directory=persist_directory, is_persistent=True)
-    client = Client(settings)
+
+    client = PersistentClient(path=persist_directory)
     return client, client.get_or_create_collection(collection_name)
 
 

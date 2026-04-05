@@ -196,6 +196,34 @@
     ],
     "name": "telecom-af.md"
   },
+  "04-dtos.md": {
+    "modified": 1775350940.1870544,
+    "vectors": [
+      "04-dtos.md_0",
+      "04-dtos.md_1",
+      "04-dtos.md_2",
+      "04-dtos.md_3",
+      "04-dtos.md_4",
+      "04-dtos.md_5",
+      "04-dtos.md_6",
+      "04-dtos.md_7",
+      "04-dtos.md_8",
+      "04-dtos.md_9",
+      "04-dtos.md_10",
+      "04-dtos.md_11",
+      "04-dtos.md_12",
+      "04-dtos.md_13",
+      "04-dtos.md_14",
+      "04-dtos.md_15",
+      "04-dtos.md_16",
+      "04-dtos.md_17",
+      "04-dtos.md_18",
+      "04-dtos.md_19",
+      "04-dtos.md_20",
+      "04-dtos.md_21"
+    ],
+    "name": "04-dtos.md"
+  },
   "01-structure.md": {
     "modified": 1775331137.710648,
     "vectors": [
@@ -219,6 +247,84 @@
       "01-structure.md_17"
     ],
     "name": "01-structure.md"
+  },
+  "03-exceptions.md": {
+    "modified": 1775350764.9336658,
+    "vectors": [
+      "03-exceptions.md_0",
+      "03-exceptions.md_1",
+      "03-exceptions.md_2",
+      "03-exceptions.md_3",
+      "03-exceptions.md_4",
+      "03-exceptions.md_5",
+      "03-exceptions.md_6",
+      "03-exceptions.md_7",
+      "03-exceptions.md_8",
+      "03-exceptions.md_9",
+      "03-exceptions.md_10",
+      "03-exceptions.md_11",
+      "03-exceptions.md_12",
+      "03-exceptions.md_13",
+      "03-exceptions.md_14",
+      "03-exceptions.md_15",
+      "03-exceptions.md_16",
+      "03-exceptions.md_17",
+      "03-exceptions.md_18",
+      "03-exceptions.md_19",
+      "03-exceptions.md_20"
+    ],
+    "name": "03-exceptions.md"
+  },
+  "02-redaction-and-cache.md": {
+    "modified": 1775351127.2623415,
+    "vectors": [
+      "02-redaction-and-cache.md_0",
+      "02-redaction-and-cache.md_1",
+      "02-redaction-and-cache.md_2",
+      "02-redaction-and-cache.md_3",
+      "02-redaction-and-cache.md_4",
+      "02-redaction-and-cache.md_5",
+      "02-redaction-and-cache.md_6",
+      "02-redaction-and-cache.md_7",
+      "02-redaction-and-cache.md_8",
+      "02-redaction-and-cache.md_9",
+      "02-redaction-and-cache.md_10",
+      "02-redaction-and-cache.md_11",
+      "02-redaction-and-cache.md_12",
+      "02-redaction-and-cache.md_13",
+      "02-redaction-and-cache.md_14",
+      "02-redaction-and-cache.md_15",
+      "02-redaction-and-cache.md_16",
+      "02-redaction-and-cache.md_17",
+      "02-redaction-and-cache.md_18",
+      "02-redaction-and-cache.md_19"
+    ],
+    "name": "02-redaction-and-cache.md"
+  },
+  "05-boundaries.md": {
+    "modified": 1775350509.4641886,
+    "vectors": [
+      "05-boundaries.md_0",
+      "05-boundaries.md_1",
+      "05-boundaries.md_2",
+      "05-boundaries.md_3",
+      "05-boundaries.md_4",
+      "05-boundaries.md_5",
+      "05-boundaries.md_6",
+      "05-boundaries.md_7",
+      "05-boundaries.md_8",
+      "05-boundaries.md_9",
+      "05-boundaries.md_10",
+      "05-boundaries.md_11",
+      "05-boundaries.md_12",
+      "05-boundaries.md_13",
+      "05-boundaries.md_14",
+      "05-boundaries.md_15",
+      "05-boundaries.md_16",
+      "05-boundaries.md_17",
+      "05-boundaries.md_18"
+    ],
+    "name": "05-boundaries.md"
   },
   "CONVENTIONS.md": {
     "modified": 1775331375.0304453,

@@ -158,7 +158,7 @@ def process_file(file_path: str):
         return
 
     # 2. Split into chunks
-    chunks = split_text(content)
+    chunks = split_text(content, chunk_size=1500, overlap=200)
     console.print(f"[green]Split text into {len(chunks)} chunks.[/green]")
 
     # 3. Embed and Upsert

@@ -4,12 +4,7 @@
     "vectors": [
       "svgate.md_0",
       "svgate.md_1",
-      "svgate.md_2",
-      "svgate.md_3",
-      "svgate.md_4",
-      "svgate.md_5",
-      "svgate.md_6",
-      "svgate.md_7"
+      "svgate.md_2"
     ],
     "name": "svgate.md"
   },
@@ -19,14 +14,7 @@
       "humo-payment.md_0",
       "humo-payment.md_1",
       "humo-payment.md_2",
-      "humo-payment.md_3",
-      "humo-payment.md_4",
-      "humo-payment.md_5",
-      "humo-payment.md_6",
-      "humo-payment.md_7",
-      "humo-payment.md_8",
-      "humo-payment.md_9",
-      "humo-payment.md_10"
+      "humo-payment.md_3"
     ],
     "name": "humo-payment.md"
   },
@@ -35,13 +23,7 @@
     "vectors": [
       "humo-middleware.md_0",
       "humo-middleware.md_1",
-      "humo-middleware.md_2",
-      "humo-middleware.md_3",
-      "humo-middleware.md_4",
-      "humo-middleware.md_5",
-      "humo-middleware.md_6",
-      "humo-middleware.md_7",
-      "humo-middleware.md_8"
+      "humo-middleware.md_2"
     ],
     "name": "humo-middleware.md"
   },
@@ -50,13 +32,7 @@
     "vectors": [
       "customers.md_0",
       "customers.md_1",
-      "customers.md_2",
-      "customers.md_3",
-      "customers.md_4",
-      "customers.md_5",
-      "customers.md_6",
-      "customers.md_7",
-      "customers.md_8"
+      "customers.md_2"
     ],
     "name": "customers.md"
   },
@@ -65,14 +41,7 @@
     "vectors": [
       "bayt-api.md_0",
       "bayt-api.md_1",
-      "bayt-api.md_2",
-      "bayt-api.md_3",
-      "bayt-api.md_4",
-      "bayt-api.md_5",
-      "bayt-api.md_6",
-      "bayt-api.md_7",
-      "bayt-api.md_8",
-      "bayt-api.md_9"
+      "bayt-api.md_2"
     ],
     "name": "bayt-api.md"
   },
@@ -80,12 +49,7 @@
     "modified": 1775337725.3362536,
     "vectors": [
       "bayt-api-manager.md_0",
-      "bayt-api-manager.md_1",
-      "bayt-api-manager.md_2",
-      "bayt-api-manager.md_3",
-      "bayt-api-manager.md_4",
-      "bayt-api-manager.md_5",
-      "bayt-api-manager.md_6"
+      "bayt-api-manager.md_1"
     ],
     "name": "bayt-api-manager.md"
   },
@@ -94,14 +58,7 @@
     "vectors": [
       "paynet-manager.md_0",
       "paynet-manager.md_1",
-      "paynet-manager.md_2",
-      "paynet-manager.md_3",
-      "paynet-manager.md_4",
-      "paynet-manager.md_5",
-      "paynet-manager.md_6",
-      "paynet-manager.md_7",
-      "paynet-manager.md_8",
-      "paynet-manager.md_9"
+      "paynet-manager.md_2"
     ],
     "name": "paynet-manager.md"
   },
@@ -110,13 +67,7 @@
     "vectors": [
       "currency-manager.md_0",
       "currency-manager.md_1",
-      "currency-manager.md_2",
-      "currency-manager.md_3",
-      "currency-manager.md_4",
-      "currency-manager.md_5",
-      "currency-manager.md_6",
-      "currency-manager.md_7",
-      "currency-manager.md_8"
+      "currency-manager.md_2"
     ],
     "name": "currency-manager.md"
   },
@@ -125,11 +76,7 @@
     "vectors": [
       "iabs.md_0",
       "iabs.md_1",
-      "iabs.md_2",
-      "iabs.md_3",
-      "iabs.md_4",
-      "iabs.md_5",
-      "iabs.md_6"
+      "iabs.md_2"
     ],
     "name": "iabs.md"
   },
@@ -139,14 +86,7 @@
       "pc-manager.md_0",
       "pc-manager.md_1",
       "pc-manager.md_2",
-      "pc-manager.md_3",
-      "pc-manager.md_4",
-      "pc-manager.md_5",
-      "pc-manager.md_6",
-      "pc-manager.md_7",
-      "pc-manager.md_8",
-      "pc-manager.md_9",
-      "pc-manager.md_10"
+      "pc-manager.md_3"
     ],
     "name": "pc-manager.md"
   },
@@ -155,13 +95,7 @@
     "vectors": [
       "smsxabar.md_0",
       "smsxabar.md_1",
-      "smsxabar.md_2",
-      "smsxabar.md_3",
-      "smsxabar.md_4",
-      "smsxabar.md_5",
-      "smsxabar.md_6",
-      "smsxabar.md_7",
-      "smsxabar.md_8"
+      "smsxabar.md_2"
     ],
     "name": "smsxabar.md"
   },
@@ -170,14 +104,7 @@
     "vectors": [
       "paynet.md_0",
       "paynet.md_1",
-      "paynet.md_2",
-      "paynet.md_3",
-      "paynet.md_4",
-      "paynet.md_5",
-      "paynet.md_6",
-      "paynet.md_7",
-      "paynet.md_8",
-      "paynet.md_9"
+      "paynet.md_2"
     ],
     "name": "paynet.md"
   },
@@ -186,15 +113,21 @@
     "vectors": [
       "telecom-af.md_0",
       "telecom-af.md_1",
-      "telecom-af.md_2",
-      "telecom-af.md_3",
-      "telecom-af.md_4",
-      "telecom-af.md_5",
-      "telecom-af.md_6",
-      "telecom-af.md_7",
-      "telecom-af.md_8"
+      "telecom-af.md_2"
     ],
     "name": "telecom-af.md"
+  },
+  "01-structure.md": {
+    "modified": 1775331137.710648,
+    "vectors": [
+      "01-structure.md_0",
+      "01-structure.md_1",
+      "01-structure.md_2",
+      "01-structure.md_3",
+      "01-structure.md_4",
+      "01-structure.md_5"
+    ],
+    "name": "01-structure.md"
   },
   "04-dtos.md": {
     "modified": 1775350940.1870544,
@@ -205,48 +138,9 @@
       "04-dtos.md_3",
       "04-dtos.md_4",
       "04-dtos.md_5",
-      "04-dtos.md_6",
-      "04-dtos.md_7",
-      "04-dtos.md_8",
-      "04-dtos.md_9",
-      "04-dtos.md_10",
-      "04-dtos.md_11",
-      "04-dtos.md_12",
-      "04-dtos.md_13",
-      "04-dtos.md_14",
-      "04-dtos.md_15",
-      "04-dtos.md_16",
-      "04-dtos.md_17",
-      "04-dtos.md_18",
-      "04-dtos.md_19",
-      "04-dtos.md_20",
-      "04-dtos.md_21"
+      "04-dtos.md_6"
     ],
     "name": "04-dtos.md"
-  },
-  "01-structure.md": {
-    "modified": 1775331137.710648,
-    "vectors": [
-      "01-structure.md_0",
-      "01-structure.md_1",
-      "01-structure.md_2",
-      "01-structure.md_3",
-      "01-structure.md_4",
-      "01-structure.md_5",
-      "01-structure.md_6",
-      "01-structure.md_7",
-      "01-structure.md_8",
-      "01-structure.md_9",
-      "01-structure.md_10",
-      "01-structure.md_11",
-      "01-structure.md_12",
-      "01-structure.md_13",
-      "01-structure.md_14",
-      "01-structure.md_15",
-      "01-structure.md_16",
-      "01-structure.md_17"
-    ],
-    "name": "01-structure.md"
   },
   "03-exceptions.md": {
     "modified": 1775350764.9336658,
@@ -257,21 +151,7 @@
       "03-exceptions.md_3",
       "03-exceptions.md_4",
       "03-exceptions.md_5",
-      "03-exceptions.md_6",
-      "03-exceptions.md_7",
-      "03-exceptions.md_8",
-      "03-exceptions.md_9",
-      "03-exceptions.md_10",
-      "03-exceptions.md_11",
-      "03-exceptions.md_12",
-      "03-exceptions.md_13",
-      "03-exceptions.md_14",
-      "03-exceptions.md_15",
-      "03-exceptions.md_16",
-      "03-exceptions.md_17",
-      "03-exceptions.md_18",
-      "03-exceptions.md_19",
-      "03-exceptions.md_20"
+      "03-exceptions.md_6"
     ],
     "name": "03-exceptions.md"
   },
@@ -283,21 +163,7 @@
       "02-redaction-and-cache.md_2",
       "02-redaction-and-cache.md_3",
       "02-redaction-and-cache.md_4",
-      "02-redaction-and-cache.md_5",
-      "02-redaction-and-cache.md_6",
-      "02-redaction-and-cache.md_7",
-      "02-redaction-and-cache.md_8",
-      "02-redaction-and-cache.md_9",
-      "02-redaction-and-cache.md_10",
-      "02-redaction-and-cache.md_11",
-      "02-redaction-and-cache.md_12",
-      "02-redaction-and-cache.md_13",
-      "02-redaction-and-cache.md_14",
-      "02-redaction-and-cache.md_15",
-      "02-redaction-and-cache.md_16",
-      "02-redaction-and-cache.md_17",
-      "02-redaction-and-cache.md_18",
-      "02-redaction-and-cache.md_19"
+      "02-redaction-and-cache.md_5"
     ],
     "name": "02-redaction-and-cache.md"
   },
@@ -309,20 +175,7 @@
       "05-boundaries.md_2",
       "05-boundaries.md_3",
       "05-boundaries.md_4",
-      "05-boundaries.md_5",
-      "05-boundaries.md_6",
-      "05-boundaries.md_7",
-      "05-boundaries.md_8",
-      "05-boundaries.md_9",
-      "05-boundaries.md_10",
-      "05-boundaries.md_11",
-      "05-boundaries.md_12",
-      "05-boundaries.md_13",
-      "05-boundaries.md_14",
-      "05-boundaries.md_15",
-      "05-boundaries.md_16",
-      "05-boundaries.md_17",
-      "05-boundaries.md_18"
+      "05-boundaries.md_5"
     ],
     "name": "05-boundaries.md"
   },
@@ -335,21 +188,7 @@
       "CONVENTIONS.md_3",
       "CONVENTIONS.md_4",
       "CONVENTIONS.md_5",
-      "CONVENTIONS.md_6",
-      "CONVENTIONS.md_7",
-      "CONVENTIONS.md_8",
-      "CONVENTIONS.md_9",
-      "CONVENTIONS.md_10",
-      "CONVENTIONS.md_11",
-      "CONVENTIONS.md_12",
-      "CONVENTIONS.md_13",
-      "CONVENTIONS.md_14",
-      "CONVENTIONS.md_15",
-      "CONVENTIONS.md_16",
-      "CONVENTIONS.md_17",
-      "CONVENTIONS.md_18",
-      "CONVENTIONS.md_19",
-      "CONVENTIONS.md_20"
+      "CONVENTIONS.md_6"
     ],
     "name": "CONVENTIONS.md"
   }
